@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Theme.IDDog" parent="Base.Theme.IDDog">
+    <item name="android:statusBarColor">@color/md_grey_400</item>
+    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <item name="android:windowActivityTransitions">true</item>
+  </style>
+</resources>

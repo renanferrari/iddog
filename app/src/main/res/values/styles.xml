@@ -1,11 +1,26 @@
 <resources>
 
-  <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
+  <style name="Base.Theme.IDDog" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <item name="colorPrimary">@color/color_primary</item>
+    <item name="colorPrimaryVariant">@color/color_primary_variant</item>
+    <item name="colorOnPrimary">@color/color_on_primary</item>
+    <item name="colorSecondary">@color/color_secondary</item>
+    <item name="colorSecondaryVariant">@color/color_secondary_variant</item>
+    <item name="colorOnSecondary">@color/color_on_secondary</item>
+    <item name="android:colorBackground">@color/color_background</item>
+    <item name="colorOnBackground">@color/color_on_background</item>
+    <item name="colorSurface">@color/color_surface</item>
+    <item name="colorOnSurface">@color/color_on_surface</item>
+    <item name="colorError">@color/color_error</item>
+    <item name="colorOnError">@color/color_on_error</item>
+  </style>
+
+  <style name="Theme.IDDog" parent="Base.Theme.IDDog" />
+
+  <style name="Theme.IDDog.Inverse" parent="Theme.IDDog">
+    <item name="colorPrimary">@color/color_on_primary</item>
+    <item name="colorPrimaryVariant">@color/color_on_primary</item>
+    <item name="colorOnPrimary">@color/color_primary</item>
   </style>
 
 </resources>
