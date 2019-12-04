@@ -3,4 +3,8 @@
   <string name="action_login">Entrar</string>
   <string name="label_title">THE "<b>"IDDOG"</b>"</string>
   <string name="label_email">E-mail</string>
+  <string name="label_husky">Husky</string>
+  <string name="label_labrador">Labrador</string>
+  <string name="label_hound">Hound</string>
+  <string name="label_pug">Pug</string>
 </resources>
