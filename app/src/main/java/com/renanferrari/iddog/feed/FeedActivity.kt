@@ -1,5 +1,7 @@
 package com.renanferrari.iddog.feed
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
@@ -14,6 +16,10 @@ class FeedActivity : AppCompatActivity() {
     const val LABRADOR_PAGE_INDEX = 1
     const val HOUND_PAGE_INDEX = 2
     const val PUG_PAGE_INDEX = 3
+
+    fun open(activity: Activity) {
+      activity.startActivity(Intent(activity, FeedActivity::class.java))
+    }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {

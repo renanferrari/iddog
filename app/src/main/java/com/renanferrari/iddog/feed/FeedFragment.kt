@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.renanferrari.iddog.R
@@ -51,8 +50,7 @@ class FeedFragment : Fragment() {
     recycler_view.addItemDecoration(GridSpacingItemDecoration(spanCount, itemSpacing))
 
     val adapter = FeedAdapter { dog, imageView ->
-      // TODO Open fullscreen with animation
-      Toast.makeText(context, "Clicked dog: $dog", Toast.LENGTH_SHORT).show()
+      ImageActivity.open(requireActivity(), imageView, dog.imageUrl)
     }
     recycler_view.adapter = adapter
 

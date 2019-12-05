@@ -21,6 +21,7 @@
       </intent-filter>
     </activity>
     <activity android:name=".feed.FeedActivity" />
+    <activity android:name=".feed.ImageActivity" />
   </application>
 
 </manifest>

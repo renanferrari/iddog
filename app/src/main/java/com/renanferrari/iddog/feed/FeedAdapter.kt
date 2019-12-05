@@ -6,11 +6,10 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.renanferrari.iddog.R
 import com.renanferrari.iddog.common.inflate
 import com.renanferrari.iddog.feed.FeedAdapter.ViewHolder
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_dog.view.image_view
 
 class FeedAdapter(
@@ -22,13 +21,11 @@ class FeedAdapter(
   }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    val context = holder.itemView.context
     val dog = getItem(position)
 
-    Glide.with(context)
+    Picasso.get()
         .load(dog.imageUrl)
         .placeholder(R.drawable.layer_list_placeholder)
-        .transition(DrawableTransitionOptions.withCrossFade())
         .into(holder.imageView)
 
     holder.itemView.setOnClickListener { onDogClicked(dog, holder.imageView) }

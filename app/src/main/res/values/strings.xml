@@ -7,4 +7,5 @@
   <string name="label_labrador">Labrador</string>
   <string name="label_hound">Hound</string>
   <string name="label_pug">Pug</string>
+  <string name="transition_image">transition_image</string>
 </resources>
