@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
@@ -10,70 +10,64 @@
     tools:context=".user.ui.SignUpActivity"
     >
 
-  <FrameLayout
+  <TextView
+      android:id="@+id/title_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:letterSpacing="0.2"
+      android:text="@string/label_title"
+      android:textAppearance="?textAppearanceHeadline5"
+      app:layout_constraintBottom_toTopOf="@+id/email_input"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/email_input"
+      style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
       android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="2"
+      android:layout_height="wrap_content"
+      android:layout_margin="32dp"
+      android:hint="@string/label_email"
+      app:layout_constraintBottom_toTopOf="@+id/button_view"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       >
 
-    <TextView
-        android:id="@+id/title_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:letterSpacing="0.2"
-        android:text="@string/label_title"
-        android:textAppearance="?textAppearanceHeadline5"
-        />
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        tools:visibility="visible"
-        />
-  </FrameLayout>
-
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:gravity="bottom"
-      android:orientation="vertical"
-      android:theme="@style/ThemeOverlay.MaterialComponents.Light"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      >
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/email_input"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/email_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="@string/label_email"
-        >
-
-      <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/email_edit_text"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:inputType="textEmailAddress"
-          />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/button_view"
-        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="32dp"
-        android:text="@string/action_sign_up"
+        android:inputType="textEmailAddress"
         />
+  </com.google.android.material.textfield.TextInputLayout>
 
+  <Button
+      android:id="@+id/button_view"
+      style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+      android:layout_width="120dp"
+      android:layout_height="56dp"
+      android:layout_gravity="center"
+      android:layout_margin="32dp"
+      android:text="@string/action_sign_up"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
 
-  </LinearLayout>
-</LinearLayout>
+  <ProgressBar
+      android:id="@+id/progress_bar"
+      android:layout_width="32dp"
+      android:layout_height="32dp"
+      android:layout_gravity="center"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@+id/button_view"
+      app:layout_constraintEnd_toEndOf="@+id/button_view"
+      app:layout_constraintStart_toStartOf="@+id/button_view"
+      app:layout_constraintTop_toTopOf="@+id/button_view"
+      tools:visibility="visible"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

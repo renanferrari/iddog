@@ -41,10 +41,10 @@ class SignUpActivity : AppCompatActivity() {
       } else {
         email_input.isEnabled = !state.loading
         button_view.isEnabled = !state.loading
-        title_view.isVisible = !state.loading
+        button_view.text = if (state.loading) "" else getString(R.string.action_sign_up)
         progress_bar.isVisible = state.loading
 
-        if (state.error.isNullOrBlank()) {
+        if (state.error.isNullOrEmpty()) {
           email_input.isErrorEnabled = false
         } else {
           email_input.error = state.error
