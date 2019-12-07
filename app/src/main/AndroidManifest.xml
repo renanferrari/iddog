@@ -21,8 +21,8 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:name=".feed.FeedActivity" />
-    <activity android:name=".feed.ImageActivity" />
+    <activity android:name=".feed.ui.FeedActivity" />
+    <activity android:name=".feed.ui.ImageActivity" />
   </application>
 
 </manifest>

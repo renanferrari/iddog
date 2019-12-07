@@ -1,4 +1,4 @@
-package com.renanferrari.iddog.common.utils
+package com.renanferrari.iddog.common
 
 public class Result<out T> constructor(
   private val value: Any?

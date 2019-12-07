@@ -1,4 +1,4 @@
-package com.renanferrari.iddog
+package com.renanferrari.iddog.user.actions
 
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.any
@@ -8,14 +8,13 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyZeroInteractions
 import com.nhaarman.mockitokotlin2.whenever
 import com.renanferrari.iddog.common.CoroutineScopeRule
-import com.renanferrari.iddog.common.Utils.INVALID_EMAIL
-import com.renanferrari.iddog.common.Utils.USER
-import com.renanferrari.iddog.common.Utils.VALID_EMAIL
-import com.renanferrari.iddog.common.Utils.makeErrorResponse
-import com.renanferrari.iddog.common.Utils.makeSuccessResponse
-import com.renanferrari.iddog.common.infrastructure.IDDogApi
-import com.renanferrari.iddog.common.infrastructure.IDDogApi.SignUpResponse
-import com.renanferrari.iddog.user.actions.SignUp
+import com.renanferrari.iddog.common.TestingData.INVALID_EMAIL
+import com.renanferrari.iddog.common.TestingData.USER
+import com.renanferrari.iddog.common.TestingData.VALID_EMAIL
+import com.renanferrari.iddog.common.TestingData.makeErrorResponse
+import com.renanferrari.iddog.common.TestingData.makeSuccessResponse
+import com.renanferrari.iddog.user.model.UserApi
+import com.renanferrari.iddog.user.model.UserApi.SignUpResponse
 import com.renanferrari.iddog.user.actions.SignUp.HttpError
 import com.renanferrari.iddog.user.actions.SignUp.InvalidEmailError
 import com.renanferrari.iddog.user.actions.SignUp.InvalidResponseError
@@ -31,12 +30,12 @@ class SignUpTest {
 
   @get:Rule var coroutineScope = CoroutineScopeRule()
 
-  private val api: IDDogApi = mock()
-  private val userRepository: UserRepository = mock()
+  private val api: UserApi = mock()
+  private val repository: UserRepository = mock()
   private lateinit var signUp: SignUp
 
   @Before fun before() {
-    signUp = SignUp(api, userRepository)
+    signUp = SignUp(api, repository)
   }
 
   @Test fun `When email is invalid should not call api and should return error`() =
@@ -57,7 +56,7 @@ class SignUpTest {
         assertThat(result.exceptionOrNull()).isInstanceOf(HttpError::class.java)
 
         verify(api).signUp(any())
-        verifyZeroInteractions(userRepository)
+        verifyZeroInteractions(repository)
       }
 
   @Test fun `When response has null body should call repository and return error`() =
@@ -69,7 +68,7 @@ class SignUpTest {
         assertThat(result.exceptionOrNull()).isInstanceOf(InvalidResponseError::class.java)
 
         verify(api).signUp(any())
-        verify(userRepository).setUser(isNull())
+        verify(repository).setUser(isNull())
       }
 
   @Test fun `When response is success should call repository and return user`() =
@@ -81,6 +80,6 @@ class SignUpTest {
         assertThat(result.getOrNull()).isEqualTo(USER)
 
         verify(api).signUp(any())
-        verify(userRepository).setUser(any())
+        verify(repository).setUser(any())
       }
 }

@@ -2,11 +2,14 @@ package com.renanferrari.iddog.di
 
 import androidx.preference.PreferenceManager
 import com.renanferrari.iddog.BuildConfig.DEBUG
-import com.renanferrari.iddog.common.infrastructure.IDDogApi
-import com.renanferrari.iddog.user.infrastructure.SharedPreferencesUserRepository
-import com.renanferrari.iddog.user.infrastructure.TokenAuthenticator
+import com.renanferrari.iddog.feed.action.GetDogsByBreed
+import com.renanferrari.iddog.feed.model.DogsApi
+import com.renanferrari.iddog.feed.ui.FeedViewModel
 import com.renanferrari.iddog.user.actions.GetUser
 import com.renanferrari.iddog.user.actions.SignUp
+import com.renanferrari.iddog.user.infrastructure.SharedPreferencesUserRepository
+import com.renanferrari.iddog.user.infrastructure.TokenInterceptor
+import com.renanferrari.iddog.user.model.UserApi
 import com.renanferrari.iddog.user.model.UserRepository
 import com.renanferrari.iddog.user.ui.SignUpViewModel
 import okhttp3.OkHttpClient
@@ -24,6 +27,7 @@ val androidModule = module {
 
 val viewModelModule = module {
   viewModel { SignUpViewModel(get(), get()) }
+  viewModel { FeedViewModel(get()) }
 }
 
 val appModule = androidModule + viewModelModule
@@ -31,25 +35,27 @@ val appModule = androidModule + viewModelModule
 val domainModule = module {
   single { SignUp(get(), get()) }
   single { GetUser(get()) }
+  single { GetDogsByBreed(get()) }
 }
 
 val apiModule = module {
-  single { TokenAuthenticator(get()) }
+  single { TokenInterceptor(get()) }
   single { HttpLoggingInterceptor().apply { level = if (DEBUG) Level.BODY else Level.NONE } }
   single {
     OkHttpClient.Builder()
-//      .authenticator(get())
+        .addInterceptor(get<TokenInterceptor>())
         .addInterceptor(get<HttpLoggingInterceptor>())
         .build()
   }
   single {
     Retrofit.Builder()
-        .baseUrl(IDDogApi.BASE_URL)
+        .baseUrl("https://api-iddog.idwall.co/")
         .client(get())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(IDDogApi::class.java)
   }
+  single { get<Retrofit>().create(UserApi::class.java) }
+  single { get<Retrofit>().create(DogsApi::class.java) }
 }
 
 val repositoriesModule = module {

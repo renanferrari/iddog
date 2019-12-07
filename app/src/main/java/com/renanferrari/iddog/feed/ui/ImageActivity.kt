@@ -1,4 +1,4 @@
-package com.renanferrari.iddog.feed
+package com.renanferrari.iddog.feed.ui
 
 import android.app.Activity
 import android.content.Intent

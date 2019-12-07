@@ -1,4 +1,4 @@
-package com.renanferrari.iddog.common.utils
+package com.renanferrari.iddog.common
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

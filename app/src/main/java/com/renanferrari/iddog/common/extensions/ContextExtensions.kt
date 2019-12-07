@@ -1,4 +1,4 @@
-package com.renanferrari.iddog.common.utils
+package com.renanferrari.iddog.common.extensions
 
 import android.content.Context
 import android.view.LayoutInflater

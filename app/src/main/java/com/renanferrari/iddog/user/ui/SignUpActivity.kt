@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.observe
 import com.renanferrari.iddog.R
-import com.renanferrari.iddog.feed.FeedActivity
+import com.renanferrari.iddog.feed.ui.FeedActivity
 import kotlinx.android.synthetic.main.activity_signup.button_view
 import kotlinx.android.synthetic.main.activity_signup.email_edit_text
 import kotlinx.android.synthetic.main.activity_signup.email_input

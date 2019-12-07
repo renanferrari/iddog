@@ -1,6 +1,5 @@
 package com.renanferrari.iddog.common
 
-import com.renanferrari.iddog.common.utils.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

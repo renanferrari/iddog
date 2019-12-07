@@ -1,4 +1,4 @@
-package com.renanferrari.iddog.feed
+package com.renanferrari.iddog.feed.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -6,17 +6,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.renanferrari.iddog.R
+import com.renanferrari.iddog.feed.model.Dog.Breed
 import kotlinx.android.synthetic.main.activity_feed.tabs
 import kotlinx.android.synthetic.main.activity_feed.view_pager
 
 class FeedActivity : AppCompatActivity() {
 
   companion object {
-    const val HUSKY_PAGE_INDEX = 0
-    const val LABRADOR_PAGE_INDEX = 1
-    const val HOUND_PAGE_INDEX = 2
-    const val PUG_PAGE_INDEX = 3
-
     fun open(activity: Activity) {
       activity.startActivity(Intent(activity, FeedActivity::class.java))
     }
@@ -29,17 +25,7 @@ class FeedActivity : AppCompatActivity() {
     view_pager.adapter = FeedPagerAdapter(supportFragmentManager, lifecycle)
 
     TabLayoutMediator(tabs, view_pager) { tab, position ->
-      tab.text = getTabTitle(position)
+      tab.text = Breed.values()[position].name
     }.attach()
-  }
-
-  private fun getTabTitle(position: Int): String? {
-    return when (position) {
-      HUSKY_PAGE_INDEX -> getString(R.string.label_husky)
-      LABRADOR_PAGE_INDEX -> getString(R.string.label_labrador)
-      HOUND_PAGE_INDEX -> getString(R.string.label_hound)
-      PUG_PAGE_INDEX -> getString(R.string.label_pug)
-      else -> null
-    }
   }
 }

@@ -1,22 +1,22 @@
 package com.renanferrari.iddog.user.actions
 
-import com.renanferrari.iddog.common.infrastructure.IDDogApi
-import com.renanferrari.iddog.common.infrastructure.IDDogApi.SignUpRequest
-import com.renanferrari.iddog.common.utils.Result
-import com.renanferrari.iddog.common.utils.isValidEmail
+import com.renanferrari.iddog.common.Result
+import com.renanferrari.iddog.common.extensions.isValidEmail
 import com.renanferrari.iddog.user.model.User
+import com.renanferrari.iddog.user.model.UserApi
+import com.renanferrari.iddog.user.model.UserApi.SignUpRequest
 import com.renanferrari.iddog.user.model.UserRepository
 
 class SignUp(
-  private val api: IDDogApi,
-  private val userRepository: UserRepository
+  private val api: UserApi,
+  private val repository: UserRepository
 ) {
-  suspend fun execute(input: String): Result<User> {
-    return if (input.isValidEmail()) {
-      api.signUp(SignUpRequest(input)).let { response ->
+  suspend fun execute(email: String): Result<User> {
+    return if (email.isValidEmail()) {
+      api.signUp(SignUpRequest(email)).let { response ->
         if (response.isSuccessful) {
           val user = response.body()?.user
-          userRepository.setUser(user)
+          repository.setUser(user)
           if (user != null) {
             Result.success(user)
           } else {
@@ -27,7 +27,7 @@ class SignUp(
         }
       }
     } else {
-      Result.failure(InvalidEmailError(input))
+      Result.failure(InvalidEmailError(email))
     }
   }
 

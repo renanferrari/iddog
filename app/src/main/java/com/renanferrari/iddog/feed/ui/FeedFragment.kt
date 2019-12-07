@@ -1,36 +1,34 @@
-package com.renanferrari.iddog.feed
+package com.renanferrari.iddog.feed.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import com.renanferrari.iddog.R
-import com.renanferrari.iddog.common.utils.GridSpacingItemDecoration
+import com.renanferrari.iddog.common.GridSpacingItemDecoration
+import com.renanferrari.iddog.feed.model.Dog.Breed
+import kotlinx.android.synthetic.main.fragment_feed.error_view
+import kotlinx.android.synthetic.main.fragment_feed.progress_bar
 import kotlinx.android.synthetic.main.fragment_feed.recycler_view
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FeedFragment : Fragment() {
 
-  companion object {
-    const val CATEGORY_KEY = "CATEGORY_KEY"
+  private val viewModel: FeedViewModel by viewModel()
 
-    fun newInstance(category: String): FeedFragment {
+  companion object {
+    const val KEY_BREED = "KEY_BREED"
+
+    fun newInstance(breed: Breed): FeedFragment {
       return FeedFragment().apply {
         arguments = Bundle().apply {
-          putString(CATEGORY_KEY, category)
+          putString(KEY_BREED, breed.name)
         }
       }
-    }
-  }
-
-  private lateinit var category: String
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    requireArguments().let {
-      category = it.getString(CATEGORY_KEY)!!
     }
   }
 
@@ -41,6 +39,10 @@ class FeedFragment : Fragment() {
   ): View? = inflater.inflate(R.layout.fragment_feed, container)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    requireArguments().let {
+      viewModel.setBreed(Breed.valueOf(it.getString(KEY_BREED)!!))
+    }
+
     val spanCount = 2
 
     recycler_view.layoutManager = GridLayoutManager(context, spanCount)
@@ -53,17 +55,11 @@ class FeedFragment : Fragment() {
     }
     recycler_view.adapter = adapter
 
-    val dogs = getData(category).map { Dog(it) }
-    adapter.submitList(dogs)
-  }
-
-  private fun getData(category: String): List<String> {
-    return when (category) {
-      "husky" -> DummyData.HUSKY
-      "labrador" -> DummyData.LABRADOR
-      "hound" -> DummyData.HOUND
-      "pug" -> DummyData.PUG
-      else -> emptyList()
+    viewModel.state.observe(this) { state ->
+      state.dogs?.let { adapter.submitList(it) }
+      progress_bar.isVisible = state.loading
+      recycler_view.isVisible = !state.loading && state.error.isNullOrBlank()
+      error_view.text = state.error
     }
   }
 }
