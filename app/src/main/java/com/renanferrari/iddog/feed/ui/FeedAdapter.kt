@@ -22,11 +22,12 @@ class FeedAdapter(
   }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    val context = holder.itemView.context
     val dog = getItem(position)
 
-    Picasso.get()
+    Picasso.with(context)
         .load(dog.imageUrl)
-        .placeholder(R.drawable.layer_list_placeholder)
+        .placeholder(R.drawable.ic_placeholder)
         .into(holder.imageView)
 
     holder.itemView.setOnClickListener { onDogClicked(dog, holder.imageView) }

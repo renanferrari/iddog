@@ -30,7 +30,7 @@ android {
 ext {
   lifecycle_version = '2.2.0-rc03'
   lifecycle_testing_version = '2.1.0'
-  retrofit_version = '2.6.2'
+  retrofit_version = '2.6.1'
   koin_version = '2.0.1'
   truth_version = '0.42'
   mockito_version = '3.2.0'
@@ -66,11 +66,11 @@ dependencies {
   implementation 'com.google.android.material:material:1.2.0-alpha02'
 
   // Picasso
-  implementation 'com.squareup.picasso:picasso:2.71828'
+  implementation 'com.squareup.picasso:picasso:2.5.2'
 
   // OkHttp
-  implementation 'com.squareup.okhttp3:okhttp:4.2.2'
-  implementation 'com.squareup.okhttp3:logging-interceptor:4.1.0'
+  implementation 'com.squareup.okhttp3:okhttp:3.12.6'
+  implementation 'com.squareup.okhttp3:logging-interceptor:3.12.6'
 
   // Retrofit
   implementation "com.squareup.retrofit2:retrofit:$retrofit_version"

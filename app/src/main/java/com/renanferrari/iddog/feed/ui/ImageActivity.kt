@@ -34,9 +34,9 @@ class ImageActivity : AppCompatActivity() {
     setContentView(R.layout.activity_image)
 
     intent.getStringExtra(KEY_IMAGE_URL).let { url ->
-      Picasso.get()
+      Picasso.with(this)
           .load(url)
-          .placeholder(R.drawable.layer_list_placeholder)
+          .placeholder(R.drawable.ic_placeholder)
           .into(image_view)
     }
   }

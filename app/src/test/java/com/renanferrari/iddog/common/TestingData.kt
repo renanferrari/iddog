@@ -2,14 +2,14 @@ package com.renanferrari.iddog.common
 
 import com.renanferrari.iddog.feed.model.Dog
 import com.renanferrari.iddog.user.model.User
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.ResponseBody.Companion.toResponseBody
+import okhttp3.MediaType
+import okhttp3.ResponseBody
 import retrofit2.Response
 
 object TestingData {
   fun <T> makeSuccessResponse(result: T? = null) = Response.success(result)
   fun <T> makeErrorResponse(code: Int, result: String = ""): Response<T> =
-      Response.error(code, result.toResponseBody("application/json".toMediaTypeOrNull()))
+      Response.error(code, ResponseBody.create(MediaType.get("application/json"), result))
 
   const val INVALID_EMAIL = "invalid@email"
   const val VALID_EMAIL = "valid@email.com"

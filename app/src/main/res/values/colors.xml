@@ -2,14 +2,14 @@
 <resources>
   <color name="color_primary">@color/md_white_100</color>
   <color name="color_primary_variant">@color/md_white_100</color>
-  <color name="color_on_primary">@color/md_black_087</color>
+  <color name="color_on_primary">@color/md_grey_900</color>
   <color name="color_secondary">#5500FF</color>
   <color name="color_secondary_variant">#3B00B2</color>
   <color name="color_on_secondary">@color/md_white_100</color>
   <color name="color_background">@color/md_white_100</color>
-  <color name="color_on_background">@color/md_black_087</color>
+  <color name="color_on_background">@color/md_grey_900</color>
   <color name="color_surface">@color/md_white_100</color>
-  <color name="color_on_surface">@color/md_black_087</color>
+  <color name="color_on_surface">@color/md_grey_900</color>
   <color name="color_error">#C51162</color>
   <color name="color_on_error">@color/md_white_100</color>
 
