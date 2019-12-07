@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.renanferrari.iddog.R
-import com.renanferrari.iddog.common.inflate
+import com.renanferrari.iddog.common.utils.inflate
 import com.renanferrari.iddog.feed.FeedAdapter.ViewHolder
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_dog.view.image_view

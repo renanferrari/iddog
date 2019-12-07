@@ -1,4 +1,4 @@
-package com.renanferrari.iddog.common
+package com.renanferrari.iddog.common.utils
 
 import android.graphics.Rect
 import android.view.View

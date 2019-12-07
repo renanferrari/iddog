@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.renanferrari.iddog.R
-import com.renanferrari.iddog.common.GridSpacingItemDecoration
+import com.renanferrari.iddog.common.utils.GridSpacingItemDecoration
 import kotlinx.android.synthetic.main.fragment_feed.recycler_view
 
 class FeedFragment : Fragment() {
@@ -43,8 +43,7 @@ class FeedFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     val spanCount = 2
 
-    val layoutManager = GridLayoutManager(context, spanCount)
-    recycler_view.layoutManager = layoutManager
+    recycler_view.layoutManager = GridLayoutManager(context, spanCount)
 
     val itemSpacing = resources.getDimensionPixelSize(R.dimen.item_spacing)
     recycler_view.addItemDecoration(GridSpacingItemDecoration(spanCount, itemSpacing))
