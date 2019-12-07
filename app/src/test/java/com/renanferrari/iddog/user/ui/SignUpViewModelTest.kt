@@ -10,14 +10,15 @@ import com.renanferrari.iddog.common.CoroutineScopeRule
 import com.renanferrari.iddog.common.TestingData.INVALID_EMAIL
 import com.renanferrari.iddog.common.TestingData.USER
 import com.renanferrari.iddog.common.TestingData.VALID_EMAIL
+import com.renanferrari.iddog.common.TestingData.makeErrorResponse
 import com.renanferrari.iddog.common.TestingData.makeSuccessResponse
 import com.renanferrari.iddog.common.captureValues
 import com.renanferrari.iddog.common.getValueForTest
-import com.renanferrari.iddog.user.model.UserApi
-import com.renanferrari.iddog.user.model.UserApi.SignUpResponse
 import com.renanferrari.iddog.user.actions.GetUser
 import com.renanferrari.iddog.user.actions.SignUp
 import com.renanferrari.iddog.user.actions.SignUp.InvalidEmailError
+import com.renanferrari.iddog.user.model.UserApi
+import com.renanferrari.iddog.user.model.UserApi.SignUpResponse
 import com.renanferrari.iddog.user.model.UserRepository
 import com.renanferrari.iddog.user.ui.SignUpViewModel.State
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -72,6 +73,25 @@ class SignUpViewModelTest {
         }
 
         verifyZeroInteractions(api)
+      }
+
+  @Test fun `When api fails, should show message`() =
+      coroutineScope.runBlockingTest {
+        whenever(repository.getUser()).thenReturn(null)
+        whenever(api.signUp(any())).thenReturn(makeErrorResponse(401))
+
+        signUpViewModel.state.captureValues {
+          signUpViewModel.setEmail(VALID_EMAIL)
+          assertThat(values).isEqualTo(
+              listOf(
+                  State.empty(),
+                  State.loading(),
+                  State.empty()
+              )
+          )
+        }
+
+        assertThat(signUpViewModel.message.getValueForTest()).isNotNull()
       }
 
   @Test fun `When a valid email is set, should return loading state and then user state`() =

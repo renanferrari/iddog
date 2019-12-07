@@ -9,4 +9,7 @@
   <string name="label_hound">Hound</string>
   <string name="label_pug">Pug</string>
   <string name="transition_image">transition_image</string>
+  <string name="action_retry">Tentar novamente</string>
+  <string name="message_error">Opa! Alguma coisa deu errado!</string>
+  <string name="message_error_subtitle">Verifique sua conexão ou tente novamente mais tarde</string>
 </resources>

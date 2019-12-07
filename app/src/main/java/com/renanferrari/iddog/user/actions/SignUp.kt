@@ -1,5 +1,6 @@
 package com.renanferrari.iddog.user.actions
 
+import com.renanferrari.iddog.common.HttpError
 import com.renanferrari.iddog.common.Result
 import com.renanferrari.iddog.common.extensions.isValidEmail
 import com.renanferrari.iddog.user.model.User
@@ -13,25 +14,27 @@ class SignUp(
 ) {
   suspend fun execute(email: String): Result<User> {
     return if (email.isValidEmail()) {
-      api.signUp(SignUpRequest(email)).let { response ->
+      try {
+        val response = api.signUp(SignUpRequest(email))
         if (response.isSuccessful) {
           val user = response.body()?.user
           repository.setUser(user)
           if (user != null) {
-            Result.success(user)
+            Result.Success(user)
           } else {
-            Result.failure(InvalidResponseError())
+            Result.Failure(SignUpError("User was null!"))
           }
         } else {
-          Result.failure(HttpError(response.code()))
+          Result.Failure(HttpError(response.code()))
         }
+      } catch (e: Throwable) {
+        return Result.Failure(e)
       }
     } else {
-      Result.failure(InvalidEmailError(email))
+      Result.Failure(InvalidEmailError(email))
     }
   }
 
-  class InvalidEmailError(email: String) : Error("Invalid email: $email")
-  class InvalidResponseError : Error("Invalid response")
-  class HttpError(code: Int) : Error("HTTP error: $code")
+  class InvalidEmailError(email: String) : Throwable("Invalid email: $email")
+  class SignUpError(message: String) : Throwable(message)
 }

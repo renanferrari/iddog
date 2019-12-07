@@ -14,7 +14,7 @@ import com.renanferrari.iddog.common.TestingData.makeSuccessResponse
 import com.renanferrari.iddog.common.captureValues
 import com.renanferrari.iddog.common.getValueForTest
 import com.renanferrari.iddog.feed.action.GetDogsByBreed
-import com.renanferrari.iddog.feed.action.GetDogsByBreed.HttpError
+import com.renanferrari.iddog.common.HttpError
 import com.renanferrari.iddog.feed.model.Dog.Breed.HUSKY
 import com.renanferrari.iddog.feed.model.DogsApi
 import com.renanferrari.iddog.feed.model.DogsApi.FeedResponse

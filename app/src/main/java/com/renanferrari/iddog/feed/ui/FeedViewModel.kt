@@ -7,6 +7,8 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.renanferrari.iddog.common.DefaultDispatcherProvider
 import com.renanferrari.iddog.common.DispatcherProvider
+import com.renanferrari.iddog.common.Result.Failure
+import com.renanferrari.iddog.common.Result.Success
 import com.renanferrari.iddog.feed.action.GetDogsByBreed
 import com.renanferrari.iddog.feed.model.Dog
 import com.renanferrari.iddog.feed.model.Dog.Breed
@@ -27,11 +29,9 @@ class FeedViewModel(
 
   fun setBreed(breed: Breed) {
     viewModelScope.launch(dispatcherProvider.io()) {
-      val result = getDogsByBreed.execute(breed)
-      if (result.isSuccess) {
-        _state.postValue(State(result.getOrNull() ?: emptyList()))
-      } else {
-        _state.postValue(State.error(result.exceptionOrNull()?.message))
+      when (val result = getDogsByBreed.execute(breed)) {
+        is Success -> _state.postValue(State(result.value))
+        is Failure -> _state.postValue(State.error(result.cause.message.orEmpty()))
       }
     }
   }

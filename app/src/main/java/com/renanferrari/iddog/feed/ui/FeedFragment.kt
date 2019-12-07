@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.renanferrari.iddog.R
 import com.renanferrari.iddog.common.GridSpacingItemDecoration
 import com.renanferrari.iddog.feed.model.Dog.Breed
+import kotlinx.android.synthetic.main.fragment_feed.error_container_view
 import kotlinx.android.synthetic.main.fragment_feed.error_view
 import kotlinx.android.synthetic.main.fragment_feed.progress_bar
 import kotlinx.android.synthetic.main.fragment_feed.recycler_view
@@ -58,7 +59,8 @@ class FeedFragment : Fragment() {
     viewModel.state.observe(this) { state ->
       state.dogs.let { adapter.submitList(it) }
       progress_bar.isVisible = state.loading
-      recycler_view.isVisible = !state.loading && state.error.isNullOrBlank()
+      recycler_view.isVisible = !state.loading && state.error == null
+      error_container_view.isVisible = state.error != null
       error_view.text = state.error
     }
   }

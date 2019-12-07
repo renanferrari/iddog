@@ -7,8 +7,12 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.renanferrari.iddog.common.DefaultDispatcherProvider
 import com.renanferrari.iddog.common.DispatcherProvider
+import com.renanferrari.iddog.common.Result.Failure
+import com.renanferrari.iddog.common.Result.Success
+import com.renanferrari.iddog.common.SingleLiveEvent
 import com.renanferrari.iddog.user.actions.GetUser
 import com.renanferrari.iddog.user.actions.SignUp
+import com.renanferrari.iddog.user.actions.SignUp.InvalidEmailError
 import com.renanferrari.iddog.user.model.User
 import kotlinx.coroutines.launch
 
@@ -24,14 +28,22 @@ class SignUpViewModel(
     emitSource(_state)
   }
 
+  private val _message = SingleLiveEvent<String>()
+  val message: LiveData<String>
+    get() = _message
+
   fun setEmail(email: String) {
     viewModelScope.launch(dispatcherProvider.io()) {
       _state.postValue(State.loading())
-      val result = signUp.execute(email)
-      if (result.isSuccess) {
-        _state.postValue(State(result.getOrNull()))
-      } else {
-        _state.postValue(State.error(result.exceptionOrNull()?.message))
+      when (val result = signUp.execute(email)) {
+        is Success -> _state.postValue(State(result.value))
+        is Failure -> when (val cause = result.cause) {
+          is InvalidEmailError -> _state.postValue(State.error(cause.message))
+          else -> {
+            _state.postValue(State.empty())
+            _message.postValue(cause.message)
+          }
+        }
       }
     }
   }
