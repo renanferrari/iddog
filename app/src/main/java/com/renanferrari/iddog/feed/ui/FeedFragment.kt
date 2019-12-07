@@ -56,7 +56,7 @@ class FeedFragment : Fragment() {
     recycler_view.adapter = adapter
 
     viewModel.state.observe(this) { state ->
-      state.dogs?.let { adapter.submitList(it) }
+      state.dogs.let { adapter.submitList(it) }
       progress_bar.isVisible = state.loading
       recycler_view.isVisible = !state.loading && state.error.isNullOrBlank()
       error_view.text = state.error

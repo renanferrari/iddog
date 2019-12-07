@@ -19,6 +19,8 @@ import com.renanferrari.iddog.feed.model.Dog.Breed.HUSKY
 import com.renanferrari.iddog.feed.model.DogsApi
 import com.renanferrari.iddog.feed.model.DogsApi.FeedResponse
 import com.renanferrari.iddog.feed.ui.FeedViewModel.State
+import com.renanferrari.iddog.user.actions.SignOut
+import com.renanferrari.iddog.user.model.UserRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
@@ -32,11 +34,13 @@ class FeedViewModelTest {
   @get:Rule var instantTaskExecutorRule = InstantTaskExecutorRule()
 
   private val api: DogsApi = mock()
+  private val repository: UserRepository = mock()
   private val getDogsByBreed = GetDogsByBreed(api)
+  private val signOut = SignOut(repository)
   private lateinit var feedViewModel: FeedViewModel
 
   @Before fun before() {
-    feedViewModel = FeedViewModel(getDogsByBreed, coroutineScope.testDispatcherProvider)
+    feedViewModel = FeedViewModel(getDogsByBreed, signOut, coroutineScope.testDispatcherProvider)
   }
 
   @Test fun `Initial state must be loading`() =

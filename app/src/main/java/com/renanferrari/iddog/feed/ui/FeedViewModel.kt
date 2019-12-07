@@ -10,10 +10,12 @@ import com.renanferrari.iddog.common.DispatcherProvider
 import com.renanferrari.iddog.feed.action.GetDogsByBreed
 import com.renanferrari.iddog.feed.model.Dog
 import com.renanferrari.iddog.feed.model.Dog.Breed
+import com.renanferrari.iddog.user.actions.SignOut
 import kotlinx.coroutines.launch
 
 class FeedViewModel(
   private val getDogsByBreed: GetDogsByBreed,
+  private val signOut: SignOut,
   private val dispatcherProvider: DispatcherProvider = DefaultDispatcherProvider()
 ) : ViewModel() {
 
@@ -33,6 +35,8 @@ class FeedViewModel(
       }
     }
   }
+
+  fun signOut() = signOut.execute()
 
   data class State(
     val dogs: List<Dog>,

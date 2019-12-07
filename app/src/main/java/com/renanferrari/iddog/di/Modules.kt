@@ -6,6 +6,7 @@ import com.renanferrari.iddog.feed.action.GetDogsByBreed
 import com.renanferrari.iddog.feed.model.DogsApi
 import com.renanferrari.iddog.feed.ui.FeedViewModel
 import com.renanferrari.iddog.user.actions.GetUser
+import com.renanferrari.iddog.user.actions.SignOut
 import com.renanferrari.iddog.user.actions.SignUp
 import com.renanferrari.iddog.user.infrastructure.SharedPreferencesUserRepository
 import com.renanferrari.iddog.user.infrastructure.TokenInterceptor
@@ -27,13 +28,14 @@ val androidModule = module {
 
 val viewModelModule = module {
   viewModel { SignUpViewModel(get(), get()) }
-  viewModel { FeedViewModel(get()) }
+  viewModel { FeedViewModel(get(), get()) }
 }
 
 val appModule = androidModule + viewModelModule
 
 val domainModule = module {
   single { SignUp(get(), get()) }
+  single { SignOut(get()) }
   single { GetUser(get()) }
   single { GetDogsByBreed(get()) }
 }

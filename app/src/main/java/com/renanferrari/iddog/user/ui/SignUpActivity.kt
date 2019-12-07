@@ -1,5 +1,7 @@
 package com.renanferrari.iddog.user.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -17,11 +19,17 @@ class SignUpActivity : AppCompatActivity() {
 
   private val viewModel: SignUpViewModel by viewModel()
 
+  companion object {
+    fun open(activity: Activity) {
+      activity.startActivity(Intent(activity, SignUpActivity::class.java))
+    }
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_signup)
 
-    button_view.setOnClickListener { signUp(email_edit_text.text.toString()) }
+    button_view.setOnClickListener { viewModel.setEmail(email_edit_text.text.toString()) }
 
     viewModel.state.observe(this) { state ->
       if (state.user != null) {
@@ -41,6 +49,4 @@ class SignUpActivity : AppCompatActivity() {
       }
     }
   }
-
-  private fun signUp(email: String) = viewModel.setEmail(email)
 }
